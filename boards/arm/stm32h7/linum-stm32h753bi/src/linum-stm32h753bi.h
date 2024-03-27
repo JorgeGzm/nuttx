@@ -102,7 +102,8 @@
 /* PWM */
 
 #define BUZZER_PWMTIMER 4
-
+#define BOARD_TONE_ONESHOT_TIM     3   /* Oneshot timer for note timings */
+#define BOARD_TONE_ONESHOT_TIM_RES 10  /* Oneshot timer resolution (us)  */
 /****************************************************************************
  * Public Function Prototypes
  ****************************************************************************/
@@ -197,6 +198,21 @@ int stm32_pwm_setup(void);
 
 #ifdef CONFIG_MTD_W25QXXXJV
 int stm32_w25qxxx_setup(void);
+#endif
+
+/****************************************************************************
+ * Name: board_tone_initialize
+ *
+ * Input Parameters:
+ *   devno - The device number, used to build the device path as /dev/toneN
+ *
+ * Description:
+ *   Configure and initialize the tone generator.
+ *
+ ****************************************************************************/
+
+#ifdef CONFIG_AUDIO_TONE
+int board_tone_initialize(int devno);
 #endif
 
 #endif /* __BOARDS_ARM_STM32H7_LINUM_STM32H753BI_SRC_LINUM_STM32H753BI_H */
