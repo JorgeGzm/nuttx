@@ -52,6 +52,10 @@ if(CONFIG_PWM)
   list(APPEND SRCS stm32_pwm.c)
 endif()
 
+if(CONFIG_ONESHOT)
+  list(APPEND SRCS stm32_oneshot.c)
+endif()
+
 if(CONFIG_MTD_W25QXXXJV)
   list(APPEND SRCS stm32_w25q.c)
 endif()

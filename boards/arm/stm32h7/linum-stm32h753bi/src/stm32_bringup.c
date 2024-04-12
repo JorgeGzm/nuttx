@@ -321,5 +321,15 @@ int stm32_bringup(void)
     }
 #endif
 
+#if defined(CONFIG_ONESHOT) && defined(CONFIG_RGB_LED_ONESHOT)
+
+  ret = stm32_oneshot_init(ONESHOT_TIMER, ONESHOT_RESOLUTION_US);
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: stm32_oneshot_init() failed: %d\n", ret);
+    }
+
+#endif
+
   return OK;
 }

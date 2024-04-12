@@ -66,4 +66,8 @@ ifeq ($(CONFIG_BOARDCTL),y)
 CSRCS += stm32_appinitialize.c
 endif
 
+ifeq ($(CONFIG_ONESHOT),y)
+CSRCS += stm32_oneshot.c
+endif
+
 include $(TOPDIR)/boards/Board.mk

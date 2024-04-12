@@ -103,6 +103,10 @@
 
 #define BUZZER_PWMTIMER 4
 
+/* ONESHOT */
+#define ONESHOT_TIMER          17
+#define ONESHOT_RESOLUTION_US  10
+
 /* Ethernet
  *
  * PI4  Reset PHY pin
@@ -231,5 +235,25 @@ int stm32_w25qxxx_setup(void);
  ****************************************************************************/
 
 int board_qencoder_initialize(int devno, int timerno);
+
+/****************************************************************************
+ * Name: board_oneshot_init
+ *
+ * Description:
+ *   Configure the oneshot timer driver.
+ *
+ * Input Parameters:
+ *   timer      - Timer instance to be used as oneshot timer.
+ *   resolution - Oneshot timer resolution.
+ *
+ * Returned Value:
+ *   Zero (OK) is returned on success; A negated errno value is returned
+ *   to indicate the nature of any failure.
+ *
+ ****************************************************************************/
+
+#ifdef CONFIG_ONESHOT
+int stm32_oneshot_init(int timer, uint16_t resolution);
+#endif
 
 #endif /* __BOARDS_ARM_STM32H7_LINUM_STM32H753BI_SRC_LINUM_STM32H753BI_H */
