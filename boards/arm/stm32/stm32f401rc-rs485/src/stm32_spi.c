@@ -76,6 +76,10 @@ void weak_function stm32_spidev_initialize(void)
 #if defined(CONFIG_STM32_SPI1) && defined(CONFIG_SENSORS_MAX66755)
   stm32_configgpio(GPIO_MAX6675_CS); /* MAX6675 chip select */
 #endif
+
+#ifdef CONFIG_STM32_SPI1
+  stm32_configgpio(GPIO_W5500_CS);    /* W5500 chip select */
+#endif
 }
 
 /****************************************************************************
@@ -144,6 +148,10 @@ void stm32_spi1select(struct spi_dev_s *dev,
     {
       stm32_gpiowrite(GPIO_MAX6675_CS, !selected);
     }
+  #endif
+
+  #ifdef CONFIG_STM32_SPI1
+  stm32_gpiowrite(GPIO_W5500_CS, !selected);
   #endif
 }
 
