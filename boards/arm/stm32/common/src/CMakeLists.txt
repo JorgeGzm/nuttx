@@ -32,6 +32,10 @@ if(CONFIG_LEDS_APA102)
   list(APPEND SRCS stm32_apa102.c)
 endif()
 
+if(CONFIG_NET_W5500)
+  list(APPEND SRCS stm32_w5500.c)
+endif()
+
 if(CONFIG_WS2812)
   list(APPEND SRCS stm32_ws2812.c)
 endif()
