@@ -335,6 +335,21 @@ extern "C"
 #define GPIO_SPI2_MOSI   GPIO_SPI2_MOSI_1
 #define GPIO_SPI2_SCK    GPIO_SPI2_SCK_2
 
+#define GPIO_SPI3_MISO   GPIO_SPI3_MISO_2
+#define GPIO_SPI3_MOSI   GPIO_SPI3_MOSI_2
+#define GPIO_SPI3_SCK    GPIO_SPI3_SCK_2
+
+/* W5500 Ethernet over SPI */
+
+#define GPIO_W5500_INTR (GPIO_INPUT | GPIO_PULLUP | GPIO_SPEED_2MHz | \
+                         GPIO_PORTB | GPIO_PIN0)
+
+#define GPIO_W5500_CS   (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_2MHz | \
+                         GPIO_OUTPUT_SET | GPIO_PORTB | GPIO_PIN1)
+
+#define GPIO_W5500_RESET   (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_2MHz | \
+                            GPIO_OUTPUT_SET | GPIO_PORTC | GPIO_PIN4)
+
 /* LEDs
  *
  * The STM32F401RC-RS485 boards provide 4 blue user LEDs. LD1, LD2, LD3
