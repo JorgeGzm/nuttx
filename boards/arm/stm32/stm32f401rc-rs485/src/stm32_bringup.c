@@ -328,5 +328,16 @@ int stm32_bringup(void)
     }
 #endif
 
+#ifdef CONFIG_FS_PROCFS
+  /* Mount the procfs file system */
+
+  ret = nx_mount(NULL, STM32_PROCFS_MOUNTPOINT, "procfs", 0, NULL);
+  if (ret < 0)
+    {
+      serr("ERROR: Failed to mount procfs at %s: %d\n",
+           STM32_PROCFS_MOUNTPOINT, ret);
+    }
+#endif
+
   return ret;
 }
