@@ -77,7 +77,7 @@ void weak_function stm32_spidev_initialize(void)
   stm32_configgpio(GPIO_MAX6675_CS); /* MAX6675 chip select */
 #endif
 
-#ifdef CONFIG_STM32_SPI1
+#if defined(CONFIG_STM32_SPI1) && defined(CONFIG_NET_W5500)
   stm32_configgpio(GPIO_W5500_CS);    /* W5500 chip select */
 #endif
 }

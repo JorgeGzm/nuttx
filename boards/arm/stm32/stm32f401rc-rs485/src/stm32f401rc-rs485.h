@@ -159,6 +159,16 @@
 #define GPIO_INT1         (GPIO_INPUT | GPIO_PULLDOWN | GPIO_SPEED_2MHz | \
                            GPIO_PORTC | GPIO_PIN4)
 
+/* procfs File System */
+
+#ifdef CONFIG_FS_PROCFS
+#  ifdef CONFIG_NSH_PROC_MOUNTPOINT
+#    define STM32_PROCFS_MOUNTPOINT CONFIG_NSH_PROC_MOUNTPOINT
+#  else
+#    define STM32_PROCFS_MOUNTPOINT "/proc"
+#  endif
+#endif
+
 /* HX711 PINs */
 #ifdef CONFIG_ADC_HX711
 #  define HX711_CLK_PIN  (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_OUTPUT_SET|\
