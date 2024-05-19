@@ -57,6 +57,10 @@ void stm32_boardinitialize(void)
 #ifdef CONFIG_ARCH_LEDS
   board_autoled_initialize();
 #endif
+
+#ifdef CONFIG_STM32_SPI1
+  stm32_spidev_initialize();
+#endif
 }
 
 /****************************************************************************
