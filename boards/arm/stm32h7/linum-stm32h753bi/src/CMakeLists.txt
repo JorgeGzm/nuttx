@@ -56,6 +56,10 @@ if(CONFIG_MTD_W25QXXXJV)
   list(APPEND SRCS stm32_w25q.c)
 endif()
 
+if(CONFIG_STEPPER_DRV8825)
+  list(APPEND SRCS stm32_drv8825.c)
+endif()
+
 if(CONFIG_USBMSC)
   list(APPEND SRCS stm32_usbmsc.c)
 endif()

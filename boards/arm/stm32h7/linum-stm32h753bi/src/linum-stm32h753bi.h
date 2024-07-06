@@ -111,6 +111,32 @@
 #define GPIO_ETH_RESET    (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_100MHz |\
                            GPIO_OUTPUT_CLEAR | GPIO_PORTI | GPIO_PIN4)  /* PI4 */
 
+/* Stepper Motor - DRV8266 */
+
+#define GPIO_DIR     (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz|\
+                      GPIO_OUTPUT_CLEAR | GPIO_PORTB | GPIO_PIN0)        /* PB0 */
+
+#define GPIO_STEP    (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz|\
+                      GPIO_OUTPUT_CLEAR | GPIO_PORTB | GPIO_PIN1)        /* PB1 */
+
+#define GPIO_SLEEP   (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz|\
+                      GPIO_OUTPUT_CLEAR | GPIO_PORTC | GPIO_PIN13)       /* PC13 */
+
+#define GPIO_RESET   (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz|\
+                      GPIO_OUTPUT_CLEAR | GPIO_PORTG | GPIO_PIN9)        /* PG9 */
+
+#define GPIO_M3      (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz|\
+                      GPIO_OUTPUT_CLEAR | GPIO_PORTC | GPIO_PIN10)      /* PG10 */
+
+#define GPIO_M2      (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz|\
+                      GPIO_OUTPUT_CLEAR | GPIO_PORTI | GPIO_PIN8)       /* PI8 */
+
+#define GPIO_M1      (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz|\
+                      GPIO_OUTPUT_CLEAR | GPIO_PORTI | GPIO_PIN11)      /* PI11 */
+
+#define GPIO_ENABLE  (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz|\
+                      GPIO_OUTPUT_CLEAR | GPIO_PORTH | GPIO_PIN15)      /* PH15 */
+
 /****************************************************************************
  * Public Function Prototypes
  ****************************************************************************/
@@ -205,6 +231,17 @@ int stm32_pwm_setup(void);
 
 #ifdef CONFIG_MTD_W25QXXXJV
 int stm32_w25qxxx_setup(void);
+#endif
+
+/****************************************************************************
+ * Name: board_drv8825_initialize
+ *
+ * Description:
+ *   Initialize drv8825 and register the stepper motor driver.
+ *
+ ****************************************************************************/
+#ifdef CONFIG_STEPPER_DRV8825
+int board_drv8825_initialize(int devno);
 #endif
 
 #endif /* __BOARDS_ARM_STM32H7_LINUM_STM32H753BI_SRC_LINUM_STM32H753BI_H */

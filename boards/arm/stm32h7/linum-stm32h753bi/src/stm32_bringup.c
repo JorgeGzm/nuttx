@@ -266,5 +266,15 @@ int stm32_bringup(void)
   usbdev_rndis_initialize(mac);
 #endif
 
+#ifdef CONFIG_STEPPER_DRV8825
+  /* Configure and initialize the drv8825 driver */
+
+  ret = board_drv8825_initialize(0);
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: board_drv8825_initialize failed: %d\n", ret);
+    }
+#endif
+
   return OK;
 }

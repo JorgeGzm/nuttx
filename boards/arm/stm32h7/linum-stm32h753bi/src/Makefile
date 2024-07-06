@@ -54,6 +54,10 @@ ifeq ($(CONFIG_MTD_W25QXXXJV),y)
 CSRCS += stm32_w25q.c
 endif
 
+ifeq ($(CONFIG_STEPPER_DRV8825),y)
+CSRCS += stm32_drv8825.c
+endif
+
 ifeq ($(CONFIG_USBMSC),y)
 CSRCS += stm32_usbmsc.c
 endif
