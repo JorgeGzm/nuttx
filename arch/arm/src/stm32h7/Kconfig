@@ -384,6 +384,7 @@ config STM32H7_STM32H7X3XX
 	select ARCH_HAVE_FPU
 	select ARCH_HAVE_DPFPU
 	select STM32H7_HAVE_LTDC
+	select STM32H7_HAVE_DMA2D
 	select STM32H7_HAVE_ETHERNET
 	select STM32H7_HAVE_FMC
 	select STM32H7_HAVE_GPIOF if !STM32H7_IO_CONFIG_V
@@ -605,6 +606,10 @@ config STM32H7_HAVE_LTDC
 	bool
 	default n
 
+config STM32H7_HAVE_DMA2D
+	bool
+	default n
+
 config STM32H7_HAVE_ETHERNET
 	bool
 	default n
@@ -762,6 +767,16 @@ config STM32H7_DMA2
 	default n
 	select STM32H7_DMA
 	select ARCH_DMA
+
+config STM32H7_DMA2D
+	bool "DMA2D"
+	default n
+	select FB
+	select FB_OVERLAY
+	depends on STM32H7_HAVE_DMA2D
+	---help---
+		The STM32 DMA2D is an Chrom-Art Accelerator for image manipulation
+		available on the STM32 H7 devices.
 
 config STM32H7_MDMA
 	bool "MDMA"
@@ -5743,6 +5758,101 @@ config STM32H7_LTDC_REGDEBUG
 endmenu
 
 endif # STM32H7_LTDC
+
+if STM32H7_DMA2D
+
+menu "DMA2D Configuration"
+
+config STM32H7_DMA2D_NLAYERS
+	int "Number DMA2D overlays"
+	default 1
+	range 1 256
+	---help---
+		Number of supported DMA2D layer.
+
+config STM32H7_DMA2D_LAYER_SHARED
+	bool "Overlays shared memory region"
+	default n
+	---help---
+		Several overlays can share the same memory region.
+		Setup a whole memory area (usually multiple size of the visible screen)
+		allows image preprocessing before they become visible by blit operation.
+
+config STM32H7_DMA2D_LAYER_PPLINE
+	int "Pixel per line"
+	default 1
+	range 1 65535
+	---help---
+		If you are using the DMA2D, then you must provide the pixel per line or
+		width of the overlay.
+
+config STM32H7_DMA2D_FB_BASE
+	hex "Framebuffer memory start address"
+	default 0
+	---help---
+		If you are using the DMA2D, then you must provide the address
+		of the start of the DMA2D overlays framebuffer. This address will typically
+		be in the SRAM or SDRAM memory region of the FSMC.
+
+config STM32H7_DMA2D_FB_SIZE
+	int "Framebuffer memory size (bytes)"
+	default 0
+	---help---
+		Must be the whole size of all DMA2D overlays.
+
+menu "Supported pixel format"
+
+config STM32H7_DMA2D_L8
+	depends on STM32H7_FB_CMAP && STM32H7_LTDC_L1_L8
+	bool "8 bpp L8 (8-bit CLUT)"
+	default y
+
+config STM32H7_DMA2D_AL44
+	depends on STM32H7_FB_CMAP && STM32H7_LTDC_L1_AL44
+	bool "8 bpp AL44 (4-bit alpha + 4-bit CLUT)"
+	default y
+
+config STM32H7_DMA2D_AL88
+	depends on STM32H7_FB_CMAP && STM32H7_LTDC_L1_AL88
+	bool "16 bpp AL88 (8-bit alpha + 8-bit CLUT)"
+	default y
+
+config STM32H7_DMA2D_RGB565
+	bool "16 bpp RGB 565"
+	depends on STM32H7_LTDC_L1_RGB565
+	default y
+
+config STM32H7_DMA2D_ARGB4444
+	bool "16 bpp ARGB 4444"
+	depends on STM32H7_LTDC_L1_ARGB4444
+	default y
+
+config STM32H7_DMA2D_ARGB1555
+	bool "16 bpp ARGB 1555"
+	depends on STM32H7_LTDC_L1_ARGB15555
+	default y
+
+config STM32H7_DMA2D_RGB888
+	bool "24 bpp RGB 888"
+	depends on STM32H7_LTDC_L1_RGB888
+	default y
+
+config STM32H7_DMA2D_ARGB8888
+	bool "32 bpp ARGB 8888"
+	depends on STM32H7_LTDC_L1_ARGB8888
+	default y
+
+endmenu
+
+config STM32H7_DMA2D_REGDEBUG
+	bool "DMA2D Register level debug"
+	depends on DEBUG_INFO && DEBUG_LCD
+	default n
+	---help---
+		Output detailed register-level DMA2D device debug information.
+
+endmenu
+endif # STM32H7_DMA2D
 
 menu "QEncoder Driver"
 	depends on SENSORS_QENCODER

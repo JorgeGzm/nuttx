@@ -46,9 +46,11 @@
 #include "arm_internal.h"
 
 #include "hardware/stm32_ltdc.h"
+#include "hardware/stm32_dma2d.h"
 #include "stm32_rcc.h"
 #include "stm32_gpio.h"
 #include "stm32_ltdc.h"
+#include "stm32_dma2d.h"
 
 /****************************************************************************
  * Pre-processor Definitions
