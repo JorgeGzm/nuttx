@@ -497,7 +497,7 @@
 #  endif
 #endif
 
-#define BOARD_SDRAM1_SIZE               (8*1024*1024)
+#define BOARD_SDRAM1_SIZE               (6*1024*1024)
 
 /* BOARD_FMC_SDCR1 - Initial value for SDRAM control registers for SDRAM
  *      bank 1. Note bank 2 isn't used!

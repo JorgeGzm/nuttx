@@ -173,6 +173,14 @@ if(CONFIG_STM32H7_ETHMAC)
   list(APPEND SRCS stm32_ethernet.c)
 endif()
 
+if(CONFIG_STM32H7_LTDC)
+  list(APPEND SRCS stm32_ltdc.c)
+endif()
+
+if(CONFIG_STM32H7_DMA2D)
+  list(APPEND SRCS stm32_dma2d.c)
+endif()
+
 if(CONFIG_SENSORS_QENCODER)
   list(APPEND SRCS stm32_qencoder.c)
 endif()
