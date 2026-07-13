@@ -394,6 +394,27 @@ enabled, so the system can be monitored live with the ``top`` command
         0     0     0   0 FIFO     Kthread   - Ready              0000000000000000 0002024 0000500  24.7%  91.8% Idle_Task
         2     2     0 100 RR       Task      - Running            0000000000000000 0004048 0001952  48.2%   8.1% nsh_main
 
+demo
+----
+
+NuttShell (nsh) configuration used to demonstrate and test on real
+hardware the system utilities covered by the NuttX documentation.
+In addition to everything in the ``nsh`` configuration (including the
+``top`` monitor), it currently enables:
+
+* ``vi`` - text editor (``CONFIG_SYSTEM_VI``)
+* tmpfs (``CONFIG_FS_TMPFS``) - RAM file system for scratch files
+
+Example session on the serial console (80x24 terminal)::
+
+    nsh> mount -t tmpfs /tmp
+    nsh> vi -c 80 -r 24 /tmp/hello.sh
+    [i to insert text, ESC, :wq to save and quit]
+    nsh> cat /tmp/hello.sh
+    echo hello from vi
+    nsh> source /tmp/hello.sh
+    hello from vi
+
 usbnsh
 ------
 
@@ -414,6 +435,36 @@ After flashing and reboot your board you should see in your dmesg logs::
     [ 9717.504192] cdc_acm 3-1.1.2:1.0: ttyACM0: USB ACM device
 
 You may need to press ENTER 3 times before the NSH show up.
+
+rs485
+-----
+
+Configures the NuttShell (nsh) with the two on-board RS-485
+transceivers enabled (UART4 on ``/dev/ttyS1`` and USART6 on
+``/dev/ttyS2``, 115200 8N1). The RS-485 driver-enable pins (DE) are
+handled automatically by the serial driver on every transmission.
+
+The ``cu`` serial terminal is included, so the console can be bridged
+directly to one of the RS-485 buses, which is useful to talk to
+devices on the bus (sensors, drives, another board) without writing
+any code::
+
+    nsh> cu -l /dev/ttyS1 -s 115200
+
+Everything typed on the console is transmitted on the RS-485 bus and
+received data is printed back. Type ``~.`` at the beginning of a line
+to exit back to nsh.
+
+The two buses can also be bridged to each other in the background,
+leaving the console free, by binding the two ports with output
+redirection::
+
+    nsh> cat /dev/ttyS1 > /dev/ttyS2 &
+    nsh> cat /dev/ttyS2 > /dev/ttyS1 &
+
+Since the board has two transceivers, a loopback self-test is
+possible by wiring A-A and B-B between the two RS-485 terminals and
+running ``cu`` on one port while sending data on the other.
 
 modbus_slave
 ------------
